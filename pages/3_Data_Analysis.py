@@ -246,7 +246,7 @@ with tabs[1]:
     )
 
     # Show chart
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Caption
     st.caption(
@@ -370,7 +370,7 @@ with tabs[1]:
 
 
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("---")
     st.markdown("## Key Insights")
@@ -504,7 +504,7 @@ with tabs[2]:
             textposition='outside'
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
  
     col3, col4 = st.columns([2, 1])
@@ -641,7 +641,7 @@ with tabs[3]:
         )
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("### Insights")
 
@@ -766,7 +766,7 @@ with tabs[4]:
         )
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
     st.markdown("### Insights")
@@ -830,7 +830,7 @@ with tabs[5]:
         margin=dict(l=10, r=10, t=40, b=10)
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     st.markdown("---")
 
@@ -932,7 +932,7 @@ with tabs[6]:
         coloraxis_showscale=False
     )
 
-    st.plotly_chart(fig_bar, use_container_width=True)
+    st.plotly_chart(fig_bar, width="stretch")
 
     st.markdown("---")
 
@@ -973,7 +973,7 @@ with tabs[6]:
         hole=0.3
     )
 
-    st.plotly_chart(fig_pie, use_container_width=True)
+    st.plotly_chart(fig_pie, width="stretch")
 
 
     st.markdown("### Insights")
@@ -1132,7 +1132,7 @@ with tabs[7]:
     # CFR -> %
     fig.update_yaxes(ticksuffix="%", row=2, col=2)
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 
     rolling = merged['NewConfirmed_7d']
@@ -1204,34 +1204,34 @@ with tabs[7]:
         )
         vacc_start = pd.Timestamp('2021-03-08')
 
-    fig.add_vline(
+        fig.add_vline(
         x=vacc_start,
         line_dash="dot",
         line_color="green",
         line_width=2
     )
 
-    fig.add_annotation(
+        fig.add_annotation(
         x=vacc_start,
         y=rolling.max()*0.6,
         text="Vaccination<br>data starts",
         showarrow=False,
         font=dict(color="green")
     )
-    fig.update_layout(
+        fig.update_layout(
         title="India COVID-19 — Wave Identification with Vaccination Milestone",
         xaxis_title="Date",
         yaxis_title="New Cases / Day (7d avg)",
         template="plotly_white",
         height=500
     )
-    fig.update_yaxes(
+        fig.update_yaxes(
         tickformat=".2s"  # auto K, M formatting
     )
-    fig.update_traces(
+        fig.update_traces(
         hovertemplate="<b>%{x|%d %b %Y}</b><br>Cases: %{y:,.0f}<extra></extra>"
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     st.markdown("### Wave Insights")
     col1, col2, col3= st.columns(3)
     if len(hist_peaks) >= 2:
@@ -1386,7 +1386,7 @@ with tabs[7]:
     fig.update_xaxes(
         tickformat="%b %Y"
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
     merged=merged[merged['pct_dose1'] > 10]
     corr = merged['pct_dose1'].corr(merged['NewConfirmed_7d'])
     

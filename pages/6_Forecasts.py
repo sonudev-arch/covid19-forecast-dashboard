@@ -225,10 +225,11 @@ def detect_peaks_scipy(series, height=None, distance=60, prominence=None):
 #Main Merged Dataset
 merged = load_data_cached()
 merged["Date"] = pd.to_datetime(merged["Date"])
-merged = merged.sort_values("Date")
-series = merged["NewConfirmed_7d"]
+
+series = merged["NewConfirmed_7d"].copy()
 series.index = merged["Date"]
-series   = merged['NewConfirmed_7d'].copy()
+
+TRAIN_CUTOFF = pd.to_datetime(TRAIN_CUTOFF)
 train_len    = series[series.index <  TRAIN_CUTOFF]
 val_len      = series[series.index >= TRAIN_CUTOFF]
 merged = merged.set_index("Date")  
@@ -525,7 +526,7 @@ with tabs[1]:
         template="plotly_dark"
     )
 
-    st.plotly_chart(fig1, use_container_width=True)
+    st.plotly_chart(fig1, width="stretch")
 
     st.markdown("###  Forecast Detail (Aug 2021 to 2030)")
 
@@ -579,7 +580,7 @@ with tabs[1]:
         template="plotly_dark"
     )
 
-    st.plotly_chart(fig2, use_container_width=True)
+    st.plotly_chart(fig2, width="stretch")
 
     #Adjusted Forecast with Vaccination Suppression
     st.markdown("## Fourier Model with Vaccination Adjustment")
@@ -611,7 +612,7 @@ with tabs[1]:
 
     vacc_days = st.session_state.vacc_days
 
-    if st.button("Run Forecast", key="vacc_button"):
+    if st.button("Generate Forecast", key="vacc_button"):
 
         # Slice data
         vacc_series = fourier_vacc_adj.iloc[:vacc_days]
@@ -649,7 +650,7 @@ with tabs[1]:
             hovermode="x unified"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     
         vacc_series_clean = (
@@ -664,6 +665,13 @@ with tabs[1]:
         df = df.set_index("Date")
 
         st.dataframe(df)
+        st.download_button(
+        "Download Prediction CSV",
+        df.to_csv(index=False).encode("utf-8"),
+        "fourier_ad_pred.csv",
+        "text/csv"
+    )
+
 
 with tabs[2]:
     st.markdown("## Holt-Winters Forecast")
@@ -697,7 +705,7 @@ with tabs[2]:
 
 
 
-    if st.button("Run Forecast", key="hw_button"):
+    if st.button("Generate Forecast", key="hw_button"):
 
         forecast = hw_model.predict(hw_days)
 
@@ -717,7 +725,12 @@ with tabs[2]:
         df = df.set_index("Date")
 
         st.dataframe(df)
-
+        st.download_button(
+        "Download Prediction CSV",
+        df.to_csv(index=False).encode("utf-8"),
+        "hw_pred.csv",
+        "text/csv"
+    )
     st.write(f"Season Length: {hw_state['season_length']}")
 
     st.write(f"Series Length: {hw_state['series_len']}")
@@ -780,7 +793,7 @@ with tabs[2]:
             hovermode="x unified"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     except Exception as e:
         st.error(f"Holt-Winters Error: {e}")
@@ -842,6 +855,12 @@ with tabs[3]:
 
         st.line_chart(forecast_df)
         st.dataframe(forecast_df)
+        st.download_button(
+        "Download Prediction CSV",
+        forecast_df.to_csv(index=False).encode("utf-8"),
+        "arima_pred.csv",
+        "text/csv"
+    )
     def predict_one_step(model, dh, rh):
         p = int(model.p)
         q = int(model.q)
@@ -892,7 +911,7 @@ with tabs[3]:
             hovermode="x unified"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     except Exception as e:
         st.error(f"ARIMA Evaluation Error: {e}")
@@ -929,7 +948,7 @@ with tabs[4]:
 
     svr_days = st.session_state.svr_days
 
-    if st.button("Run Forecast", key="svr_button"):
+    if st.button("Generate Forecast", key="svr_button"):
 
         n_lags = len(LAGS)
 
@@ -956,8 +975,11 @@ with tabs[4]:
             )
 
         forecast_series = pd.Series(preds, index=svr_dates)
+        forecast_series = pd.Series(forecast_series).rolling(7, center=True).mean()
+        forecast_series= forecast_series.dropna()
+        
         forecast_series = forecast_series.round()
-
+        
             # Plot
         st.line_chart(forecast_series)
 
@@ -969,7 +991,12 @@ with tabs[4]:
         forecast_df = forecast_df.set_index("Date")
 
         st.dataframe(forecast_df)
-
+        st.download_button(
+        "Download Prediction CSV",
+        forecast_df.to_csv(index=False).encode("utf-8"),
+        "svr_pred.csv",
+        "text/csv"
+    )
     st.markdown("### SVR Evaluation")
     try:
         train_series = np.asarray(train_len)
@@ -1020,7 +1047,7 @@ with tabs[4]:
             hovermode="x unified"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     except Exception as e:
         st.error(f"SVR Evaluation Error: {e}")
@@ -1123,7 +1150,7 @@ with tabs[5]:
             hovermode="x unified"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     
         df = fourier_series.round().astype(int).reset_index()
@@ -1132,7 +1159,12 @@ with tabs[5]:
         df = df.set_index("Date")
 
         st.dataframe(df)
-
+        st.download_button(
+        "Download Prediction CSV",
+        df.to_csv(index=False).encode("utf-8"),
+        "fourier_pred.csv",
+        "text/csv"
+    )
     def fourier_predict_range(start_idx, length, params):
         t = np.arange(start_idx, start_idx + length, dtype=float)
         return np.clip(wave_model(t, *params), 0, None)
@@ -1175,7 +1207,7 @@ with tabs[5]:
             hovermode="x unified"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     except Exception as e:
         st.error(f"Fourier Evaluation Error: {e}")
@@ -1258,10 +1290,10 @@ with tabs[6]:
         col1, col2 = st.columns(2)
 
         with col1:
-            st.plotly_chart(fig_rmse, use_container_width=True)
+            st.plotly_chart(fig_rmse, width="stretch")
 
         with col2:
-            st.plotly_chart(fig_mae, use_container_width=True)
+            st.plotly_chart(fig_mae, width="stretch")
 
     except Exception as e:
         st.error(f"Model comparison error: {e}")
