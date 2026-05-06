@@ -77,7 +77,7 @@ with col1:
     )
 
     page_card(
-        "Trend Analysis",
+        "Data Analysis",
         "Time-series trends, moving averages, and state comparisons.",
         "3_Data_Analysis.py"
     )
