@@ -73,7 +73,7 @@ with col1:
     page_card(
         "Datasets",
         "Datasets, Data Info, Data Quality and Data Preview",
-        "3_Data_Analysis.py"
+        "2_Datasets.py"
     )
 
     page_card(
@@ -99,7 +99,7 @@ with col2:
     )
 
     page_card(
-        "Predictions",
+        "Forecasts",
         "Forecasting, model comparison, and future wave prediction.",
         "6_Forecasts.py"
     )
