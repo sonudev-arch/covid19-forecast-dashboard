@@ -1297,6 +1297,166 @@ with tabs[6]:
 
     except Exception as e:
         st.error(f"Model comparison error: {e}")
+    st.markdown(
+    "## Forecast Performance Analysis"
+    )
+
+    actual_mean = np.mean(val_len.values)
+
+    performance_rows = []
+
+    for name, (_, rmse, mae) in models_val.items():
+
+        performance_score = max(
+            0,
+            100 - (
+                (mae / actual_mean) * 100
+            )
+        )
+
+        performance_rows.append({
+
+            "Model": name,
+
+            "RMSE": round(rmse, 2),
+
+            "MAE": round(mae, 2),
+
+            "Performance Score (%)": round(
+                performance_score,
+                2
+            )
+
+        })
+
+    performance_df = pd.DataFrame(
+        performance_rows
+    )
+
+    performance_df = (
+        performance_df
+        .sort_values(
+            "Performance Score (%)",
+            ascending=False
+        )
+        .reset_index(drop=True)
+    )
+
+    performance_df["Rank"] = (
+        performance_df.index + 1
+    )
+
+    best_perf_model = (
+        performance_df.iloc[0]["Model"]
+    )
+
+    best_perf_score = (
+        performance_df.iloc[0]
+        ["Performance Score (%)"]
+    )
+
+    st.success(
+        f"Best Performance Model: "
+        f"{best_perf_model} "
+        f"({best_perf_score:.2f}%)"
+    )
+
+    st.dataframe(
+
+        performance_df.style.apply(
+
+            lambda row: [
+
+                (
+                    "background-color: #14532d;"
+                    "color: white;"
+                    "font-weight: bold;"
+                )
+
+                if row.name == 0
+                else ""
+
+                for _ in row
+
+            ],
+
+            axis=1
+
+        ),
+
+        use_container_width=True
+
+    )
+
+    fig_perf = px.bar(
+
+        performance_df,
+
+        x="Model",
+
+        y="Performance Score (%)",
+
+        text="Performance Score (%)",
+
+        title="Forecast Performance Score"
+
+    )
+
+    fig_perf.update_traces(
+
+        texttemplate='%{text:.2f}%',
+
+        textposition='outside'
+
+    )
+
+    fig_perf.update_layout(
+
+        template="plotly_dark",
+
+        yaxis_title="Performance Score (%)",
+
+        xaxis_title="Models",
+
+        xaxis_tickangle=20
+
+    )
+
+    st.plotly_chart(
+        fig_perf,
+        width="stretch"
+    )
+
+    st.markdown(
+        "### Individual Model Performance"
+    )
+
+    cols = st.columns(
+        len(performance_df)
+    )
+
+    for i, row in performance_df.iterrows():
+
+        with cols[i]:
+
+            st.metric(
+
+                label=row["Model"],
+
+                value=(
+                    f"{row['Performance Score (%)']:.2f}%"
+                )
+
+            )
+
+    st.info("""
+    Performance Score is a normalized metric
+    derived from MAE relative to average
+    actual values.
+
+    Lower RMSE and MAE indicate better
+    forecasting performance.
+    """)
     st.info("""
     Fourier + Vaccination Adjusted model is used for long-term forecasting 
     because it captures wave patterns and incorporates real-world vaccination effects.
