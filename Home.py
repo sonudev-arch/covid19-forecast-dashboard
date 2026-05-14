@@ -109,7 +109,7 @@ with col2:
         "About.py"
     )
 st.markdown("---")
-
+st.link_button("Go to Github repo","https://github.com/sonudev-arch/covid19-forecast-dashboard")
 st.markdown("## Analytical Pipeline")
 
 st.markdown("""
