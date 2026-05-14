@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.set_page_config(page_title="Home | COVID Analytics", layout="wide")
+st.set_page_config(page_title="Home | COVID Analytics", layout="wide",page_icon="image/covid_icon.png")
 
 st.markdown("""
 <style>
