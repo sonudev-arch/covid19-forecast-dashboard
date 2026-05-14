@@ -325,34 +325,43 @@ with tabs[0]:
     st.title("Forecasts")
     st.markdown("---")
     st.markdown("## Overview")
-
     st.write("""
-### What is Forecasting?
+    This section generates and evaluates forecasts for COVID-19 time-series data
+    using multiple models.
 
-Forecasting is the process of predicting future values based on historical data.
-In time-series analysis, forecasting models identify patterns such as trends, seasonality,
-and cycles to estimate how the data will behave in the future.
-
-Forecasting is used to estimate:
-- Future COVID-19 case trends  
-- Potential wave peaks and timing  
-- Long-term progression of the pandemic  
-""")
-
+    The goal is to compare model performance, analyze future trends,
+    and identify potential wave patterns using data-driven methods.
+    """)
     st.markdown("### Forecasting Approach")
 
     st.write("""
-This system applies multiple forecasting techniques to generate reliable predictions.
-Each model captures different characteristics of the time series, and their outputs are compared
-to ensure robustness and accuracy.
+    This system applies multiple forecasting techniques to generate reliable predictions.
+    Each model captures different characteristics of the time series, and their outputs are compared
+    to ensure robustness and accuracy.
 
-The forecasting pipeline includes:
-- Model training on historical data  
-- Walk-forward validation for realistic evaluation  
-- Future projection based on learned patterns  
-- Peak detection on predicted values to identify upcoming waves  
-""")
+    The forecasting pipeline includes:
+    - Model training on historical data  
+    - Walk-forward validation for realistic evaluation  
+    - Future projection based on learned patterns  
+    - Peak detection on predicted values to identify upcoming waves  
+        """)
+    st.markdown("### Overfitting Control")
 
+    st.info("""
+    Walk-forward validation is used to reduce overfitting.
+
+    Models are evaluated on unseen future data sequentially,
+    ensuring that predictions mimic real-world forecasting conditions.
+    """)
+    st.markdown("### Data Leakage Prevention")
+
+    st.info("""
+    Data leakage is avoided by ensuring that models are trained only on past data
+    and evaluated on future unseen values.
+
+    Walk-forward validation enforces strict temporal separation,
+    making the evaluation realistic and reliable.
+    """)
     st.markdown("### Types of Forecasts Generated")
 
     st.write("""
@@ -1048,7 +1057,7 @@ with tabs[4]:
         )
 
         st.plotly_chart(fig, width="stretch")
-
+        st.caption("Note: A rolling average is applied for smoother visualization. Evaluation metrics are computed on raw predictions.")
     except Exception as e:
         st.error(f"SVR Evaluation Error: {e}")
 
@@ -1294,7 +1303,7 @@ with tabs[6]:
 
         with col2:
             st.plotly_chart(fig_mae, width="stretch")
-
+        
     except Exception as e:
         st.error(f"Model comparison error: {e}")
     st.markdown(
@@ -1448,18 +1457,24 @@ with tabs[6]:
                 )
 
             )
-
+    
     st.info("""
-    Performance Score is a normalized metric
-    derived from MAE relative to average
-    actual values.
+    Performance Score is a normalized metric derived from MAE relative to average actual values.
 
-    Lower RMSE and MAE indicate better
-    forecasting performance.
+    It provides an intuitive comparison across models,
+    but RMSE and MAE remain the primary evaluation metrics.
     """)
     st.info("""
     Fourier + Vaccination Adjusted model is used for long-term forecasting 
     because it captures wave patterns and incorporates real-world vaccination effects.
+    """)
+    st.markdown("### Final Insight")
+
+    st.success("""
+    Model performance depends on how well the model aligns with underlying data patterns.
+
+    In this case, wave-like COVID behavior makes Fourier-based models more suitable
+    for long-term forecasting.
     """)
     st.markdown("### Model Parameters Summary")
 
@@ -1587,7 +1602,7 @@ with tabs[7]:
         interval = 0
 
     st.success(f"""
-    - Next wave expected around: {next_date_str}
+    - Next wave is estimated around: {next_date_str}
 
     - Expected peak cases: {int(next_cases):,} per day
 
@@ -1597,3 +1612,4 @@ with tabs[7]:
 
     Long-term trend shows gradual decline due to immunity + vaccination
     """)
+    st.info("Forecasts represent possible scenarios based on historical patterns, not exact future outcomes.")

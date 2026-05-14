@@ -59,12 +59,12 @@ with tabs[0]:
     st.title("Data Analysis")
     st.markdown("---")
     st.markdown("## Overview")
-    st.write("""
-    Data analysis is the systematic process of collecting, cleaning, transforming, and interpreting data
-    to extract meaningful insights, identify patterns, and support decision-making.
 
-    In this project, data analysis is performed on COVID-19 time-series data to understand how the pandemic evolved,
-    analyze trends across states, and study the impact of various factors such as vaccination.
+    st.write("""
+    This section analyzes COVID-19 time-series data to understand how the pandemic evolved across India.
+
+    The focus is on identifying trends, wave patterns, regional variations, and the impact of vaccination
+    through structured data exploration and visualization.
     """)
 
     st.markdown("---")
@@ -73,8 +73,13 @@ with tabs[0]:
 
     st.write("""
     This section provides a comprehensive analytical view of COVID-19 trends across India.
-    It combines case data, recovery patterns, mortality trends, and vaccination progress
-    to build a unified understanding of the pandemic.
+
+    It combines:
+    - Case progression (confirmed, recovered, deaths)  
+    - Regional comparisons across states and union territories  
+    - Vaccination trends and their influence on case dynamics  
+
+    to build a unified understanding of pandemic behavior.
     """)
 
     st.markdown("---")
@@ -82,17 +87,17 @@ with tabs[0]:
     st.markdown("### Exploratory Data Analysis")
 
     st.write("""
-    Exploratory Data Analysis (EDA) is the process of examining and visualizing data to understand its structure,
-    identify patterns, detect anomalies, and generate initial insights.
+    Exploratory Data Analysis (EDA) is used to uncover patterns and insights from the data
+    before applying forecasting models.
 
     In this project, EDA is used to:
-    - Explore time-series behavior of COVID-19 cases  
+    - Analyze time-series behavior of COVID-19 cases  
     - Identify peaks and wave patterns  
-    - Detect irregularities and sudden changes in reporting  
-    - Compare trends across states and regions  
-    - Understand variability and distribution in the data  
+    - Detect sudden spikes and irregular reporting patterns  
+    - Compare trends across regions  
+    - Understand variability and data distribution  
 
-    EDA forms the foundation for further analysis and forecasting.
+    These insights guide model selection and improve forecasting accuracy.
     """)
 
     st.markdown("---")
@@ -152,12 +157,11 @@ with tabs[0]:
 with tabs[1]:
     st.markdown("# Trend Analysis")
  
-    st.write('Trend analysis is a statistical approach to identifying patterns or changes in data over time. It\'s used to help predict future business dynamics and inform decision-making. Whether used for finance, marketing, supply chain management, economics, healthcare or environmental sciences, it can be a useful tool for any organization looking to build evidence-based strategies based on historical precedents.')
-    st.markdown('## Trend Analysis overview')
-    st.markdown("""
-    Trend analysis examines how COVID-19 cases evolved over time, helping identify
-    patterns such as growth phases, peaks, and decline periods. This enables a deeper
-    understanding of how the pandemic progressed across regions.
+    st.write("""
+    This section analyzes how COVID-19 cases evolved over time across India and individual states.
+
+    It focuses on identifying growth phases, peak waves, and decline patterns,
+    along with comparing regional differences in pandemic behavior.
     """)
     
     data["Date"] = pd.to_datetime(data["Date"])

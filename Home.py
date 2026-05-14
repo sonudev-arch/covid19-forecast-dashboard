@@ -27,17 +27,30 @@ st.markdown("""
 
 st.title("COVID-19 Analytics & Forecasting System")
 st.caption("End-to-end time-series analysis, wave detection, and forecasting of COVID-19 in India")
-
+st.write("This system focuses not just on prediction, but on evaluating model reliability in uncertain time-series data.")
 st.markdown("---")
 
+st.markdown("## Problem Statement")
+
+st.info("""
+Time-series forecasting of COVID-19 cases to analyze short-term vs long-term prediction reliability.
+
+This system compares multiple models to understand their behavior over time and evaluate how reliable they are under real-world conditions.
+""")
+st.link_button("View Source Code on Github", "https://github.com/sonudev-arch/covid19-forecast-dashboard")
 st.markdown("## Project Overview")
 
 st.write("""
-This project is a complete data science system designed to analyze the spread and impact of COVID-19.
-It combines time-series analysis, statistical modeling, and machine learning techniques to extract insights,
-identify patterns, and generate future forecasts.
+This application analyzes COVID-19 trends and predicts future cases using multiple machine learning models.
 
 The application is structured as a multi-page dashboard, where each page focuses on a specific analytical task.
+""")
+st.markdown("### Why This Project Matters")
+
+st.write("""
+Accurate forecasting during a pandemic is challenging due to uncertainty, noise, and changing patterns.
+
+This project explores how different models behave under such conditions, highlighting their strengths and limitations in real-world scenarios.
 """)
 
 st.markdown("---")
@@ -49,7 +62,7 @@ st.info("""
 - Detect and compare multiple waves  
 - Understand growth patterns and volatility  
 - Evaluate vaccination impact  
-- Forecast future scenarios using multiple models  
+- Compare forecasting models for short-term vs long-term accuracy  
 """)
 
 st.markdown("---")
@@ -72,19 +85,19 @@ col1, col2 = st.columns(2)
 with col1:
     page_card(
         "Datasets",
-        "Datasets, Data Info, Data Quality and Data Preview",
+        "Comprehensive exploration of multiple COVID-19 datasets including structure, data quality, statistical summaries, and preprocessing insights for time-series analysis.",
         "2_Datasets.py"
     )
 
     page_card(
-        "Data Analysis",
-        "Time-series trends, moving averages, and state comparisons.",
+        "Data Analysis", 
+        "Exploratory analysis of time-series trends, moving averages, growth    patterns, and inter-state comparisons.",
         "3_Data_Analysis.py"
     )
 
     page_card(
         "Time Decomposition",
-        "Trend, seasonality, residual analysis + stationarity testing.",
+        "Breakdown of time-series into trend, seasonality, and residuals with stationarity testing for model readiness.",
         "4_Time_Decomposition.py"
     )
 
@@ -94,23 +107,29 @@ with col2:
 
     page_card(
         "Models",
-        "Overview of ARIMA, Holt-Winters, SVR, and Fourier models.",
+        "Understanding assumptions, strengths, and limitations of ARIMA, Holt-Winters, SVR, and Fourier.",
         "5_Models.py"
     )
 
     page_card(
         "Forecasts",
-        "Forecasting, model comparison, and future wave prediction.",
+        "Model predictions, performance comparison, and evaluation of short-term vs long-term forecast accuracy.",
         "6_Forecasts.py"
     )
     page_card(
         "About",
-        "About",
+        "Overview of project motivation, methodology, and insights from time-series forecasting and model evaluation.",
         "About.py"
     )
 st.markdown("---")
-st.link_button("Go to Github repo","https://github.com/sonudev-arch/covid19-forecast-dashboard")
-st.markdown("## Analytical Pipeline")
+
+st.markdown("## Key Insight")
+
+st.success("""
+Different models behave differently across time horizons. 
+A model that performs well in short-term forecasting may fail in long-term predictions due to trend shifts and noise.
+""")
+st.markdown("## ML Pipeline and Validation Strategy")
 
 st.markdown("""
 1. Data Collection & Cleaning  

@@ -12,18 +12,11 @@ with tabs[0]:
     st.markdown("## Overview")
 
     st.write("""
-    ### What are Forecasting Models?
+    This section compares multiple forecasting models applied to COVID-19 time-series data.
 
-    Forecasting models are mathematical and statistical techniques used to predict future values
-    based on historical data. In time-series analysis, these models learn patterns such as trends,
-    seasonality, and cycles to generate future projections.
-
-    In the context of COVID-19, forecasting models help estimate:
-    - Future case counts  
-    - Potential wave peaks  
-    - Trend continuation or decline  
+    Each model captures different characteristics such as trend, seasonality, non-linearity, and wave patterns.
+    The goal is to evaluate their behavior and identify the most reliable model for forecasting.
     """)
-
     st.markdown("### Models Used")
 
     st.write("""
@@ -91,7 +84,25 @@ with tabs[0]:
     st.markdown("---")
 with tabs[1]:
     st.markdown("### 1. Holt-Winters Exponential Smoothing")
-    st.write("Holt-Winters Exponential Smoothing is a time series forecasting method that accounts for both trend and seasonality in the data. It uses three smoothing equations to capture the level, trend, and seasonal components of the time series. This model is particularly effective for data with strong seasonal patterns.")
+
+    st.write("""
+    Holt-Winters is a time-series forecasting method that captures level, trend, and seasonality
+    using exponential smoothing.
+
+    It is particularly effective for data with consistent patterns and gradual changes,
+    as it smooths noise and emphasizes underlying structure.
+
+    In the context of COVID-19 data:
+    - It models overall trend and seasonal behavior effectively  
+    - It performs well when the data follows smooth and predictable patterns  
+    - However, it struggles with sudden spikes and irregular wave patterns  
+
+    Since COVID-19 data contains abrupt changes (e.g., sudden waves),
+    Holt-Winters may fail to capture sharp peaks accurately.
+
+    Thus, it is used as a baseline model for trend and seasonality comparison,
+    rather than for capturing complex wave dynamics.
+    """)
     st.write("The model can be expressed as follows:")
     st.latex(r"""
     \begin{aligned}
@@ -110,7 +121,26 @@ with tabs[1]:
     """)
 with tabs[2]:
     st.markdown("### 2. ARIMA (AutoRegressive Integrated Moving Average)")
-    st.write("ARIMA is a popular time series forecasting model that combines autoregressive (AR), differencing (I), and moving average (MA) components. It is suitable for univariate time series data and can capture various patterns such as trends and seasonality.")
+
+    st.write("""
+    ARIMA is a statistical time-series model that captures relationships between past values
+    and past errors using autoregression, differencing, and moving average components.
+
+    It is particularly effective for modeling linear patterns in stationary data.
+
+    In this project:
+    - Differencing (d=1) is applied to make the data stationary, as confirmed by ADF testing  
+    - ARIMA captures short-term dependencies and local trends effectively  
+    - It performs well for short-term forecasting  
+
+    However:
+    - It assumes linear relationships and struggles with non-linear patterns  
+    - It cannot naturally capture strong wave-like or periodic behavior  
+    - Performance degrades in the presence of sudden spikes and structural changes  
+
+    Thus, ARIMA is used as a strong statistical baseline for short-term forecasting,
+    but is not sufficient for capturing long-term wave dynamics in COVID-19 data.
+    """)
     st.write("The ARIMA model can be expressed as follows:")
     st.latex(r"""
     \begin{aligned}
@@ -124,9 +154,27 @@ with tabs[2]:
     st.markdown(r"- $\theta(B)$ is the moving average polynomial")
     st.markdown(r"- $\epsilon_t$ is the error term")  
 with tabs[3]:
-    st.markdown("### 3. SVR with lag features(Machine Learning Baseline)")
-    st.write("Support Vector Regression (SVR) is a machine learning model that can be used for regression tasks. By creating lag features from the time series data, we can use SVR to capture complex relationships and make predictions. This approach can serve as a baseline for comparing the performance of traditional time series models.")
-    st.write("In this approach, we create lag features such as $X_{t-1}$, $X_{t-2}$, etc., and use them as input to the SVR model to predict the target variable at time $t$. The SVR model can capture non-linear relationships in the data, making it a powerful tool for forecasting.")
+    st.markdown("### 3. SVR with Lag Features (Machine Learning Model)")
+
+    st.write("""
+    Support Vector Regression (SVR) is a machine learning model used for regression tasks that can capture
+    non-linear relationships in time-series data.
+
+    In this approach, lag features are created (e.g., $X_{t-1}$, $X_{t-2}$, ...) to convert the time-series problem
+    into a supervised learning problem.
+
+    SVR uses kernel functions to map input data into a higher-dimensional space,
+    allowing it to model complex patterns that traditional statistical models may miss.
+
+    In the context of COVID-19 data:
+    - SVR performs well for short-term predictions  
+    - It captures non-linear fluctuations and local variations  
+    - However, it lacks interpretability and struggles with long-term trends and structural changes  
+
+    Thus, SVR is used as a complementary model for capturing short-term non-linear behavior,
+    rather than as the primary forecasting model.
+    """)
+  
     st.write("The SVR model can be expressed as follows:")
     st.latex(r"""
     \begin{aligned}
@@ -139,8 +187,32 @@ with tabs[3]:
     st.markdown(r"- $K(x_i, x)$ is the kernel function")
     st.markdown(r"- $b$ is the bias term")
 with tabs[4]:
-    st.markdown('### 4. Fourier Wave model ')
-    st.write('The Fourier Wave model is a time series forecasting method that uses Fourier series to capture seasonality in the data. It decomposes the time series into a sum of sine and cosine functions, allowing it to model complex seasonal patterns effectively. This approach is particularly useful when the seasonality is not strictly periodic or when there are multiple seasonalities present in the data.')
+    
+    st.markdown("### 4. Fourier Wave Model")
+
+    st.write("""
+    The Fourier Wave model is a time-series forecasting approach that represents data
+    as a combination of sine and cosine functions, allowing it to capture periodic patterns.
+
+    It is particularly effective for data that exhibits wave-like or cyclic behavior.
+
+    In the context of COVID-19 data:
+    - The pandemic shows repeated waves driven by transmission cycles and external factors  
+    - Fourier decomposition captures these periodic patterns effectively  
+    - It produces smooth approximations of the underlying trend  
+
+    This makes the model especially useful for:
+    - Long-term forecasting  
+    - Identifying recurring wave structures  
+    - Supporting stable peak detection by reducing noise  
+
+    However:
+    - The model requires careful tuning of frequency components  
+    - It may not capture sudden irregular spikes perfectly  
+
+    Thus, the Fourier model is the most suitable approach for modeling wave-like behavior
+    and is used as the primary model for long-term forecasting in this project.
+    """)
     st.write('The Fourier Wave model can be expressed as follows:')
     st.latex(r"""
     \begin{aligned}
@@ -155,15 +227,22 @@ with tabs[4]:
     st.markdown('---')
 with tabs[5]:       
     st.markdown("## Model Insights")
+    st.markdown("### Model Selection Insight")
 
     st.info("""
-    - Holt-Winters captures trend + seasonality but struggles with sudden spikes.
+    - Holt-Winters captures trend and seasonality but struggles with sudden spikes and irregular wave patterns.
 
-    - ARIMA works well after differencing (d=1), as confirmed by stationarity test.
+    - ARIMA performs well after differencing but assumes linear relationships and short-term dependencies.
 
-    - SVR captures non-linear patterns but lacks interpretability.
+    - SVR captures non-linear patterns using lag features, but lacks interpretability and struggles with long-term structure.
 
-    - Fourier model performs best due to its ability to capture strong periodic wave patterns observed in decomposition. Final selection should be validated using RMSE and MAE.
+    - Fourier model is particularly effective because COVID-19 data exhibits strong wave-like and periodic behavior.
+
+    By decomposing the signal into sinusoidal components, the Fourier model captures underlying cycles
+    that traditional models fail to represent, making it more suitable for long-term forecasting.
+
+    - Fourier also enables smooth reconstruction of trends, which makes peak detection more stable and reliable
+    compared to noisy daily data.
     """)
     st.markdown("### Practical Interpretation")
 
@@ -201,18 +280,33 @@ with tabs[5]:
         .set_properties(**{'text-align': 'center'}),
         use_container_width=True
     )
+    st.markdown("### Key Takeaway")
+    st.info("Model selection and performance depend on how well the model aligns with the underlying data characteristics.")
     st.success("""
     Final Conclusion:
 
-    Based on decomposition, stationarity, and observed wave patterns,
-    the Fourier-based model (with vaccination adjustment) is the most suitable 
-    for long-term COVID forecasting.
+    COVID-19 data exhibits strong wave-like and non-stationary behavior.
 
-    Other models serve as baselines for comparison.
+    The Fourier-based model performs best for long-term forecasting because it captures periodic patterns,
+    while traditional models struggle with sudden spikes and structural changes.
+
+    Other models serve as baselines for comparison and short-term behavior analysis.
     """)
 
     st.info(
         "Next, we quantitatively compare these models using RMSE and MAE to identify the best-performing approach."
     )
-    st.markdown('##')
+    st.markdown("### Model Comparison Strategy")
+
+    st.write("""
+    All models are evaluated using the same dataset and validation strategy.
+
+    Performance is compared using:
+    - RMSE (penalizes large errors)
+    - MAE (average prediction error)
+
+    This ensures fair and objective comparison across models.
+    """)
+    st.markdown("### Final Insight")
+    st.success("Understanding the data is more important than choosing complex models.")
     st.markdown('---')

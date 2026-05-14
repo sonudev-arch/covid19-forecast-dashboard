@@ -9,20 +9,7 @@ st.markdown("---")
 
 st.markdown("## Purpose")
 
-st.write("""
-The COVID-19 pandemic created a highly dynamic and complex data environment, where understanding trends,
-predicting future behavior, and evaluating interventions became critical.
 
-This project was developed to address these challenges by building a comprehensive analytical system
-that leverages time-series analysis, statistical modeling, and machine learning.
-
-The primary objective is to transform raw pandemic data into:
-- Meaningful insights
-- Interpretable patterns
-- Reliable forecasts
-
-The system is designed not just for visualization, but for deep analytical understanding and decision support.
-""")
 
 st.markdown("---")
 
@@ -48,45 +35,14 @@ st.markdown("## Methodology and Analytical Pipeline")
 st.write("""
 The web app follows a structured and modular workflow, ensuring both interpretability and robustness:
 
-1. Data Processing
-- Data cleaning and preprocessing  
-- Handling missing values and inconsistencies  
-- Time-series structuring  
-
-2. Exploratory Data Analysis (EDA)
-- Trend visualization  
-- Peak detection and wave identification  
-- Comparative analysis across regions  
-
-3. Feature Engineering
-- Active cases computation  
-- Growth rate (percentage change)  
-- Moving averages and smoothing  
-
-4. Time-Series Decomposition
-- Separation into Trend, Seasonality, and Residual  
-- Identification of underlying patterns  
-
-5. Statistical Testing
-- Stationarity testing using Augmented Dickey-Fuller (ADF)  
-- Differencing to stabilize time-series  
-
-6. Model Development
-The following models are implemented:
-
-- ARIMA (statistical forecasting)  
-- Holt-Winters (trend and seasonality smoothing)  
-- Support Vector Regression (SVR)  
-- Fourier-based modeling for periodic patterns  
-
-7. Model Evaluation
-- Walk-forward validation  
-- Error metrics: RMSE and MAE  
-
-8. Forecasting and Wave Prediction
-- Future trend projection  
-- Peak detection on predicted data  
-- Vaccination-adjusted forecasting  
+1. Data Processing - cleaning and structuring  
+2. EDA - trends, peaks, comparisons  
+3. Feature Engineering - active cases, growth rate  
+4. Decomposition - trend, seasonality, residual  
+5. Testing - ADF and differencing  
+6. Models - ARIMA, Holt-Winters, SVR, Fourier  
+7. Evaluation - RMSE, MAE, walk-forward validation  
+8. Forecasting - future trends and wave prediction  
 """)
 
 st.markdown("---")
@@ -168,18 +124,15 @@ st.markdown("---")
 st.markdown("## About the Developer")
 
 st.write("""
-This project was developed as part of a learning journey in data science and analytics.
+This project was developed to apply data science concepts to a real-world problem.
 
-It reflects a strong focus on:
-- Understanding real-world datasets  
-- Applying theoretical concepts in practical scenarios  
-- Building scalable and interactive analytical systems  
+It demonstrates practical skills in:
+- Time-series analysis and forecasting  
+- Data-driven reasoning and model evaluation  
+- Building interactive analytical systems using Streamlit  
 
-The project demonstrates skills in:
-- Data analysis and visualization  
-- Time-series modeling and forecasting  
-- Machine learning fundamentals  
-- Streamlit-based application development  
+The focus throughout the project is on understanding model behavior,
+not just generating predictions.
 """)
 
 st.markdown("---")

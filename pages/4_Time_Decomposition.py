@@ -16,25 +16,21 @@ def covid_data():
     data = data.set_index('Date')
     return data
 
-tabs=st.tabs(["Overview","Time Decomposition", "Stationarity"])
+tabs=st.tabs(["Overview","Time Decomposition", "Stationarity","Insights"])
 with tabs[0]:
     st.title("Time Series Decomposition")
     st.markdown("---")
     st.markdown("## Overview")
 
     st.write("""
-    ### What is Time Series Data?
+    This section analyzes COVID-19 time-series data by decomposing it into trend,
+    seasonality, and residual components.
 
-    A time series is a sequence of data points collected or recorded at regular intervals over time.
-    Unlike general datasets, time series data has a strong temporal component, meaning that the order of observations matters.
-
-    Examples of time series data include:
-    - Daily COVID-19 cases  
-    - Stock prices over time  
-    - Temperature readings across days  
-
-    In this project, COVID-19 case counts (confirmed, recovered, deaths) are analyzed as time series to understand how the pandemic evolved over time.
+    The goal is to understand underlying patterns such as long-term growth,
+    repeating wave cycles, and irregular fluctuations, which directly influence
+    model selection and forecasting accuracy.
     """)
+
 
     st.markdown("### What is Time Series Decomposition?")
 
@@ -164,8 +160,6 @@ with tabs[1]:
         trend_slope = np.polyfit(range(len(trend)), trend, 1)[0]
         trend_direction = "Upward" if trend_slope > 0 else "Downward"
 
-        trend_direction = "Upward" if trend_slope > 0 else "Downward"
-
         #Seasonality Strength
         season_strength = seasonal.std()
 
@@ -187,7 +181,7 @@ with tabs[1]:
         col4.metric("Stability Ratio", f"{stability_ratio:.2f}")
         col5.metric("Seasonality Period", period)
 
-        # Insights
+
         st.info(
         f"""
         - Trend is **{trend_direction.lower()}**, indicating overall pandemic direction.
@@ -201,34 +195,14 @@ with tabs[1]:
             or external shocks.
 
         - Stability ratio = {stability_ratio:.2f}:
-            >1 → structured, predictable waves  
-            <1 → chaotic spread
+            >1 → strong seasonality dominates noise (predictable patterns)  
+            <1 → noise dominates seasonality (less predictable behavior)
         """
     )
 
     except Exception as e:
         st.warning(f"Insight calculation error: {e}")
 
-    st.success(
-    "Detected seasonality indicates periodic patterns in the data. "
-    "This supports the use of Fourier-based models for capturing cyclical behavior, "
-    "though real-world factors should also be considered."
-    )
-    st.markdown("### Trend vs Wave Behavior")
-
-    try:
-        peak_val = result.observed.max()
-        trend_peak = result.trend.max()
-
-        st.metric("Peak vs Trend Ratio", f"{peak_val / trend_peak:.2f}x")
-
-        st.info(
-            "Peaks significantly above trend indicate sudden outbreak waves "
-            "that cannot be explained by long-term trend alone."
-        )
-
-    except:
-        pass
     st.markdown('---')
 with tabs[2]:
 #Testing for Stationarity.
@@ -261,7 +235,64 @@ with tabs[2]:
         "Series becomes stationary after 1st differencing → suitable for ARIMA(d=1). "
         "This confirms that the data has a trend component that needs removal before modeling."
     )
-    st.info('ARIMA order I(d=1) and Fourier model works on raw values with dampening')
+with tabs[3]:
+        
+    st.title("Insights")
+    st.info("""
+        Insights summarize how underlying patterns in the data influence model behavior
+        and forecasting performance.
+        """)
+              
+    st.markdown("---")
+    st.success("""
+    Detected seasonality indicates strong periodic patterns in the data.
 
-    st.markdown('####')
-    st.markdown('---')
+    This supports the use of Fourier-based models for capturing cyclical behavior,
+    while also highlighting the presence of structured wave dynamics.
+    """)
+    st.markdown("### Trend vs Wave Behavior")
+
+    try:
+        peak_val = result.observed.max()
+        trend_peak = result.trend.max()
+
+        st.metric("Peak vs Trend Ratio", f"{peak_val / trend_peak:.2f}x")
+
+        st.info(
+            "Peaks significantly above trend indicate sudden outbreak waves that cannot be explained by long-term growth patterns "
+            "that cannot be explained by long-term trend alone."
+        )
+
+    except:
+        pass
+        st.info("""
+        ARIMA requires stationarity (achieved through differencing),
+        while Fourier models operate on raw data by capturing periodic patterns
+        with damping to handle long-term decay.
+        """)
+        st.markdown("### Model Implication")
+
+        st.info("""
+        Decomposition shows strong seasonal and wave-like patterns in COVID-19 data.
+
+        This supports:
+        - ARIMA after differencing for short-term forecasting  
+        - Fourier-based models for capturing periodic wave behavior  
+
+        Thus, model selection is guided by observed data structure.
+        """)
+        st.markdown("### Key Takeaway")
+
+        st.info("""
+        Time-series decomposition reveals that COVID-19 data is driven by both
+        long-term trends and repeating wave patterns.
+
+        Understanding these components is essential for selecting appropriate forecasting models.
+        """)
+        st.success("""
+        Final Insight:
+
+        Understanding underlying data patterns is more important than selecting complex models.
+        Model effectiveness depends on alignment with data behavior.
+        """)  
+        st.markdown('---')

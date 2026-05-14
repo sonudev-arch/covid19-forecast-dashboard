@@ -106,20 +106,19 @@ with tabs[0]:
     st.markdown("## Overview")
 
     st.write("""
-    A dataset is a structured collection of data that is organized for analysis, processing, and interpretation.
-    In data science, datasets are used to extract patterns, generate insights, and build predictive models.
+    This section presents the datasets used for analyzing COVID-19 trends in India.
 
-    This project utilizes multiple datasets related to COVID-19 in India, covering both case statistics and vaccination progress.
-    The data is structured as time-series, which allows analysis of how the pandemic evolved over time.
+    The project combines multiple time-series datasets covering case statistics
+    and vaccination progress to provide a comprehensive view of the pandemic.
 
-    The datasets collectively provide information on:
-    - Daily confirmed cases, recoveries, and deaths  
-    - State and Union Territory level distribution  
-    - Vaccination coverage and dose administration  
-    - Temporal progression of the pandemic  
+    These datasets enable analysis of:
+    - Pandemic progression over time  
+    - Regional spread across states and union territories  
+    - Impact of vaccination on case trends  
+    - Wave patterns and growth dynamics  
 
-    These datasets form the foundation for all analytical tasks performed in this system, including trend analysis,
-    growth modeling, wave detection, and forecasting.
+    They form the foundation for all analytical tasks in this system,
+    including trend analysis, wave detection, and forecasting.
     """)
 
     st.markdown("---")
@@ -170,3 +169,11 @@ with tabs[3]:
         vac_data,
         "https://www.data.gov.in/resource/stateut-wise-covid-19-vaccination-status-5-august-2021"
     )
+st.subheader("Preprocessing Summary")
+
+st.write("""
+- Converted date columns to datetime  
+- Handled missing values  
+- Sorted data chronologically  
+- Prepared features for time-series modeling  
+""")
