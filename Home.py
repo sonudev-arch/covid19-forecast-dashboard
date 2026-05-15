@@ -24,7 +24,8 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
+st.markdown("######")
 st.title("COVID-19 Analytics & Forecasting System")
 st.caption("End-to-end time-series analysis, wave detection, and forecasting of COVID-19 in India")
 st.write("This system focuses not just on prediction, but on evaluating model reliability in uncertain time-series data.")
@@ -183,4 +184,8 @@ cols = st.columns(6)
 with cols[5]:
     if st.button("Next"):
         st.switch_page("pages/2_Datasets.py")
+
+cols = st.columns(6)
+with cols[0]:
+    st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 st.markdown("---")

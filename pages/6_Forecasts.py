@@ -310,7 +310,8 @@ def wave_model(t, A1, omega1, phi1,
 
 # Fourier Adjusted Model
 fourier_vacc_adj, fourier_vanilla, suppression_forecast, LAG_DAYS, DECAY, VACC_SENSITIVITY = load_vacc_cached()
-
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
+st.markdown("######")
 tabs = st.tabs([
     "Overview",
     "Forecast",
@@ -411,7 +412,9 @@ Forecasting is not only used for prediction,
 but also for understanding the behavior and dynamics of pandemic waves.
 """)
 
-    st.markdown("---")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 @st.cache_data
 def get_hist_peaks(series):
@@ -680,7 +683,9 @@ with tabs[1]:
         "fourier_ad_pred.csv",
         "text/csv"
     )
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 with tabs[2]:
     st.markdown("## Holt-Winters Forecast")
@@ -816,6 +821,9 @@ with tabs[2]:
     )
 
     st.write(f'Forecast range: {future_dates[0].date()} → {future_dates[-1].date()}')
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 #ARIMA Model
 with tabs[3]:
@@ -924,7 +932,9 @@ with tabs[3]:
 
     except Exception as e:
         st.error(f"ARIMA Evaluation Error: {e}")
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 #Support Vector Regression (SVR)
 with tabs[4]:
     st.markdown("## Support Vector Regression (SVR)")
@@ -1060,7 +1070,9 @@ with tabs[4]:
         st.caption("Note: A rolling average is applied for smoother visualization. Evaluation metrics are computed on raw predictions.")
     except Exception as e:
         st.error(f"SVR Evaluation Error: {e}")
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 #Fourier Wave Model
 with tabs[5]:
     st.markdown("## Fourier Wave Model")
@@ -1220,6 +1232,9 @@ with tabs[5]:
 
     except Exception as e:
         st.error(f"Fourier Evaluation Error: {e}")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[6]:
     st.markdown("## Models Comparison")
 
@@ -1510,7 +1525,9 @@ with tabs[6]:
         "model_parameters.csv",
         "text/csv"
     )
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 #Wave Summary
 with tabs[7]:
@@ -1615,9 +1632,12 @@ with tabs[7]:
     st.info("Forecasts represent possible scenarios based on historical patterns, not exact future outcomes.")
     cols = st.columns(6)
     with cols[0]:
-        if st.button("Back"):
-            st.switch_page("pages/5_Models.py")
-    with cols[5]:
-        if st.button("Next"):
-            st.switch_page("pages/About.py")
-    st.markdown("---")
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("pages/5_Models.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/About.py")
+st.markdown("---")

@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
+st.markdown("######")
 tabs=st.tabs(["Overview",
             "Holt-Winters",
               "ARIMA",
@@ -81,7 +83,9 @@ with tabs[0]:
     such as RMSE and MAE to ensure objective evaluation.
     """)
 
-    st.markdown("---")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[1]:
     st.markdown("### 1. Holt-Winters Exponential Smoothing")
 
@@ -119,6 +123,9 @@ with tabs[1]:
     - $s_t$: seasonal component at time $t$  
     - $\alpha$, $\beta$, $\gamma$: smoothing parameters for level, trend, and seasonality  
     """)
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[2]:
     st.markdown("### 2. ARIMA (AutoRegressive Integrated Moving Average)")
 
@@ -152,7 +159,10 @@ with tabs[2]:
     st.markdown(r"- $\phi(B)$ is the autoregressive polynomial")
     st.markdown(r"- $(1 - B)^d$ is the differencing operator")
     st.markdown(r"- $\theta(B)$ is the moving average polynomial")
-    st.markdown(r"- $\epsilon_t$ is the error term")  
+    st.markdown(r"- $\epsilon_t$ is the error term")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)  
 with tabs[3]:
     st.markdown("### 3. SVR with Lag Features (Machine Learning Model)")
 
@@ -186,6 +196,9 @@ with tabs[3]:
     st.markdown(r"- $\alpha_i$ are the Lagrange multipliers")
     st.markdown(r"- $K(x_i, x)$ is the kernel function")
     st.markdown(r"- $b$ is the bias term")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[4]:
     
     st.markdown("### 4. Fourier Wave Model")
@@ -224,7 +237,9 @@ with tabs[4]:
     st.markdown(r"- $a_0$ is the DC component")
     st.markdown(r"- $a_n$ and $b_n$ are the Fourier coefficients")
     st.markdown(r"- $T$ is the period of the seasonal pattern") 
-    st.markdown('---')
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[5]:       
     st.markdown("## Model Insights")
     st.markdown("---")
@@ -312,9 +327,12 @@ with tabs[5]:
     st.success("Understanding the data is more important than choosing complex models.")
     cols = st.columns(6)
     with cols[0]:
-        if st.button("Back"):
-            st.switch_page("pages/4_Time_Decomposition.py")
-    with cols[5]:
-        if st.button("Next"):
-            st.switch_page("pages/6_Forecasts.py")
-    st.markdown('---')
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("pages/4_Time_Decomposition.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/6_Forecasts.py")
+st.markdown('---')

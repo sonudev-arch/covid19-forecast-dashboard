@@ -43,7 +43,9 @@ def load_merged_data():
     merged['CFR_smooth'] = merged['CFR_pct'].rolling(14, min_periods=1).mean()
     return merged
 merged = load_merged_data()
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
 
+st.markdown("######")
 tabs = st.tabs([
     "Overview",
     "Trends",
@@ -153,6 +155,9 @@ with tabs[0]:
     Insights are based on historical data and statistical smoothing techniques.
     They help understand past trends but should be interpreted cautiously for future predictions.
     """)
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
     
 with tabs[1]:
     st.markdown("# Trend Analysis")
@@ -439,8 +444,11 @@ with tabs[1]:
     **Note:** Trend analysis is based on historical data. Sudden changes in policy,
     behavior, or virus variants can alter future patterns significantly.
     """)
-    @st.cache_data
-    def get_top_10(data, metric):
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+@st.cache_data
+def get_top_10(data, metric):
         df = (
             data.groupby("State/UnionTerritory")[metric]
             .max()
@@ -529,8 +537,10 @@ with tabs[2]:
         )
 
         st.info(f"{worst_state} shows the highest {metric.lower()} count.")
-
-    st.markdown("---")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+    
 
 @st.cache_data
 def load_active():
@@ -679,7 +689,9 @@ Wave 2 was **{wave2_peak / wave1_peak:.1f}x more severe**, indicating a signific
     Active cases depend on reporting accuracy and recovery definitions.
     Sudden changes may reflect data updates rather than real-world shifts.
     """)
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 #Growth Rate Analysis
 @st.cache_data
 def load_growth(data):
@@ -804,6 +816,9 @@ with tabs[4]:
     st.warning("""
     Growth rates can be sensitive to sudden reporting changes or data corrections.
     Interpret short-term spikes cautiously.""")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 #Correlation Analysis
 with tabs[5]:
 
@@ -879,6 +894,9 @@ with tabs[5]:
     These relationships exist because all variables are derived from total cases,
     not because one directly causes another.
     """)
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 with tabs[6]:
 
@@ -1008,9 +1026,10 @@ with tabs[6]:
         Uneven distribution across states may indicate differences in population,
         logistics, or policy effectiveness.
         """)
-
-    st.markdown("---")
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+        
 with tabs[7]:
 #EDA of merged dataset
     st.markdown("## Exploratory Data Analysis")
@@ -1401,11 +1420,13 @@ with tabs[7]:
 )
     cols = st.columns(6)
     with cols[0]:
-        if st.button("Back"):
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
             st.switch_page("pages/2_Datasets.py")
-    with cols[5]:
-        if st.button("Next"):
-            st.switch_page("pages/4_Time_Decomposition.py")
-
-    st.markdown("---")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/4_Time_Decomposition.py")
+st.markdown("---")
 

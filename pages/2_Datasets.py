@@ -6,6 +6,7 @@ from utils.data_loader import (
     load_vaccination_data,
     load_vaccination2_data
 )
+
 @st.cache_data
 def load_covid_cached():
     return load_covid_data()
@@ -96,12 +97,16 @@ def show_dataset(title, data, link):
 
     st.link_button("View Dataset", link)
 
-    st.markdown("---")
+    
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
+
+st.markdown("###")
 tabs=st.tabs(["Overview",
               "Covid 19(India)",
               "Vaccination Data(Kaggle)",
               "Vaccination Data(Datagov)"])
 with tabs[0]:
+    
     st.title("Datasets")
     st.markdown("## Overview")
 
@@ -120,8 +125,10 @@ with tabs[0]:
     They form the foundation for all analytical tasks in this system,
     including trend analysis, wave detection, and forecasting.
     """)
-
-    st.markdown("---")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+    
 #Function to show date range coverage
 def show_date_range(df, possible_cols=["Date", "date", "Updated On", "Time", "Timestamp"]):
     for col in possible_cols:
@@ -148,22 +155,30 @@ def show_date_range(df, possible_cols=["Date", "date", "Updated On", "Time", "Ti
 
 
 with tabs[1]:
+    
+    
     show_dataset(
         "COVID-19 Data (India)",
         covid_data,
         "https://www.kaggle.com/datasets/sudalairajkumar/covid19-in-india"
     )
-
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 with tabs[2]:
+    
     show_dataset(
         "Vaccination Data (Kaggle)",
         vac2_data,
         "https://www.kaggle.com/datasets/harveenchadha/india-covid19-vaccination-data"
     )
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 
 with tabs[3]:
-        
+      
     show_dataset(
         "Vaccination Data (Datagov)",
         vac_data,
@@ -179,10 +194,17 @@ with tabs[3]:
     """)
     cols = st.columns(6)
     with cols[0]:
-        if st.button("Back"):
-            st.switch_page("Home.py")
-    with cols[5]:
-        if st.button("Next"):
-            st.switch_page("pages/3_Data_Analysis.py")
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("Home.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/3_Data_Analysis.py")
+st.markdown("---")
 
-    st.markdown("---")
+
+
+
+

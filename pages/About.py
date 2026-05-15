@@ -1,7 +1,8 @@
 import streamlit as st
 
 st.set_page_config(page_title="About", layout="wide")
-
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
+st.markdown("######")
 st.title("About")
 st.caption("Understanding the motivation, methodology, and analytical depth of the COVID-19 Analytics System")
 
@@ -152,6 +153,10 @@ st.success("""
 This system demonstrates how data science can transform complex datasets into meaningful insights,
 helping bridge the gap between raw data and informed decision-making.
 """)
+
+cols = st.columns(6)
+with cols[0]:
+    st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 cols = st.columns(6)
 with cols[0]:
     if st.button("Back"):
@@ -159,4 +164,4 @@ with cols[0]:
 with cols[5]:
     if st.button("Go to Home"):
         st.switch_page("Home.py")
-st.markdown("---")
+st.markdown("---")       

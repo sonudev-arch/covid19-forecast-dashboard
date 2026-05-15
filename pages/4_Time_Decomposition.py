@@ -15,7 +15,8 @@ def covid_data():
     data['Date'] = pd.to_datetime(data['Date'])
     data = data.set_index('Date')
     return data
-
+st.markdown('<a id="top"></a>', unsafe_allow_html=True)
+st.markdown("######")
 tabs=st.tabs(["Overview","Time Decomposition", "Stationarity","Insights"])
 with tabs[0]:
     st.title("Time Series Decomposition")
@@ -74,8 +75,9 @@ with tabs[0]:
     In this project, decomposition helps reveal how pandemic waves emerged,
     how trends changed over time, and how much variation is due to noise versus real patterns.
     """)
-
-    st.markdown("---")
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
     
 with tabs[1]:
     st.markdown("## Time Series Decomposition(Covid 19)")
@@ -203,7 +205,9 @@ with tabs[1]:
     except Exception as e:
         st.warning(f"Insight calculation error: {e}")
 
-    st.markdown('---')
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[2]:
 #Testing for Stationarity.
     st.markdown("## Testing for Stationarity")
@@ -235,6 +239,9 @@ with tabs[2]:
         "Series becomes stationary after 1st differencing → suitable for ARIMA(d=1). "
         "This confirms that the data has a trend component that needs removal before modeling."
     )
+    cols = st.columns(6)
+    with cols[0]:
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
 with tabs[3]:
         
     st.title("Insights")
@@ -243,7 +250,7 @@ with tabs[3]:
         and forecasting performance.
         """)
               
-    st.markdown("---")
+    
     st.success("""
     Detected seasonality indicates strong periodic patterns in the data.
 
@@ -295,13 +302,15 @@ with tabs[3]:
         Understanding underlying data patterns is more important than selecting complex models.
         Model effectiveness depends on alignment with data behavior.
         """)  
-        st.markdown('---')
     cols = st.columns(6)
     with cols[0]:
-        if st.button("Back"):
-            st.switch_page("pages/3_Data_Analysis.py")
-    with cols[5]:
-        if st.button("Next"):
-            st.switch_page("pages/5_Models.py")
+        st.markdown('<a href="#top">Go to Top</a>', unsafe_allow_html=True)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("pages/3_Data_Analysis.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/5_Models.py")
 
-    st.markdown("---")
+st.markdown("---")
