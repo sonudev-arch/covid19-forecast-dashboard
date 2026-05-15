@@ -1399,13 +1399,13 @@ with tabs[7]:
     st.info(
     "After vaccination rollout, a negative correlation is observed, suggesting that higher vaccination coverage is associated with lower case trends. However, correlation does not imply causation."
 )
-cols = st.columns(6)
-with cols[0]:
-    if st.button("Back"):
-        st.switch_page("pages/2_Datasets.py")
-with cols[5]:
-    if st.button("Next"):
-        st.switch_page("pages/4_Time_Decomposition.py")
+    cols = st.columns(6)
+    with cols[0]:
+        if st.button("Back"):
+            st.switch_page("pages/2_Datasets.py")
+    with cols[5]:
+        if st.button("Next"):
+            st.switch_page("pages/4_Time_Decomposition.py")
 
-st.markdown("---")
+    st.markdown("---")
 

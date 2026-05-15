@@ -169,20 +169,20 @@ with tabs[3]:
         vac_data,
         "https://www.data.gov.in/resource/stateut-wise-covid-19-vaccination-status-5-august-2021"
     )
-st.subheader("Preprocessing Summary")
+    st.subheader("Preprocessing Summary")
 
-st.write("""
-- Converted date columns to datetime  
-- Handled missing values  
-- Sorted data chronologically  
-- Prepared features for time-series modeling  
-""")
-cols = st.columns(6)
-with cols[0]:
-    if st.button("Back"):
-        st.switch_page("Home.py")
-with cols[5]:
-    if st.button("Next"):
-        st.switch_page("pages/3_Data_Analysis.py")
+    st.write("""
+    - Converted date columns to datetime  
+    - Handled missing values  
+    - Sorted data chronologically  
+    - Prepared features for time-series modeling  
+    """)
+    cols = st.columns(6)
+    with cols[0]:
+        if st.button("Back"):
+            st.switch_page("Home.py")
+    with cols[5]:
+        if st.button("Next"):
+            st.switch_page("pages/3_Data_Analysis.py")
 
-st.markdown("---")
+    st.markdown("---")

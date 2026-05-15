@@ -310,11 +310,11 @@ with tabs[5]:
     """)
     st.markdown("### Final Insight")
     st.success("Understanding the data is more important than choosing complex models.")
-cols = st.columns(6)
-with cols[0]:
-    if st.button("Back"):
-        st.switch_page("pages/4_Time_Decomposition.py")
-with cols[5]:
-    if st.button("Next"):
-        st.switch_page("pages/6_Forecasts.py")
-st.markdown('---')
+    cols = st.columns(6)
+    with cols[0]:
+        if st.button("Back"):
+            st.switch_page("pages/4_Time_Decomposition.py")
+    with cols[5]:
+        if st.button("Next"):
+            st.switch_page("pages/6_Forecasts.py")
+    st.markdown('---')
