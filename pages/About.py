@@ -8,7 +8,13 @@ st.caption("Understanding the motivation, methodology, and analytical depth of t
 st.markdown("---")
 
 st.markdown("## Purpose")
+st.write("""
+This project develops an analytical system to study COVID-19 time-series data,
+focusing on trend analysis, wave detection, and forecasting.
 
+The goal is to understand how different models behave in real-world conditions,
+evaluate their reliability, and generate meaningful insights rather than just predictions.
+""")
 
 
 st.markdown("---")
@@ -146,3 +152,11 @@ st.success("""
 This system demonstrates how data science can transform complex datasets into meaningful insights,
 helping bridge the gap between raw data and informed decision-making.
 """)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("pages/6_Forecasts.py")
+with cols[5]:
+    if st.button("Go to Home"):
+        st.switch_page("Home.py")
+st.markdown("---")

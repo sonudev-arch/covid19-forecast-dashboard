@@ -179,3 +179,8 @@ st.success("""
 This system demonstrates how data science techniques can transform raw data into meaningful insights,
 helping understand past patterns and anticipate future trends.
 """)
+cols = st.columns(6)
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/2_Datasets.py")
+st.markdown("---")

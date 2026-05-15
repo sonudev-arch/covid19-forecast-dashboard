@@ -1613,3 +1613,11 @@ with tabs[7]:
     Long-term trend shows gradual decline due to immunity + vaccination
     """)
     st.info("Forecasts represent possible scenarios based on historical patterns, not exact future outcomes.")
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("pages/5_Models.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/About.py")
+st.markdown("---")

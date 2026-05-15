@@ -296,3 +296,12 @@ with tabs[3]:
         Model effectiveness depends on alignment with data behavior.
         """)  
         st.markdown('---')
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("pages/3_Data_Analysis.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/5_Models.py")
+
+st.markdown("---")

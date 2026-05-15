@@ -177,3 +177,12 @@ st.write("""
 - Sorted data chronologically  
 - Prepared features for time-series modeling  
 """)
+cols = st.columns(6)
+with cols[0]:
+    if st.button("Back"):
+        st.switch_page("Home.py")
+with cols[5]:
+    if st.button("Next"):
+        st.switch_page("pages/3_Data_Analysis.py")
+
+st.markdown("---")
